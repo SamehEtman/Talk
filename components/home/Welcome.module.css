@@ -6,3 +6,8 @@
 .starting h1 {
   font-size: 5rem;
 }
+.starting h1 a {
+  font-size: 5rem;
+  text-decoration: none;
+  color: #202020;
+}

@@ -1,4 +1,4 @@
-import AuthForm from '../components/auth/AuthPage';
+import AuthForm from '../components/auth/AuthForm';
 
 const AuthPage = () => {
   return <AuthForm />;
