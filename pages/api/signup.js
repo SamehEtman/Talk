@@ -1,7 +1,6 @@
 import { connectDB } from '../../lib/db-uitl';
 
 const handler = async (req, res) => {
-  console.log('hrere');
 
   if (req.method === 'POST') {
     const { email, password } = req.body;

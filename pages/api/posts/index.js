@@ -11,7 +11,6 @@ const handler = async (req, res) => {
     client.close();
   }
   if (req.method === 'POST') {
-    console.log('here');
     const client = await connectDB();
     const db = client.db();
     const { title, summary, content, image } = req.body;

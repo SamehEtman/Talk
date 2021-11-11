@@ -1,15 +1,19 @@
+import { getSession } from 'next-auth/client';
+import { useRouter } from 'next/dist/client/router';
+import { useEffect, useState } from 'react';
 import PostDetails from '../../components/post-details/PostDetails';
 import { fetchAllPosts, fetchById } from '../../lib/api-utils';
-const dummyData = {
-  _id: 1,
-  title: 'hello',
-  summary: 'hello world',
-  content: 'Dennis Richie is my bitch',
-  image:
-    'https://upload.wikimedia.org/wikipedia/commons/e/e6/Dennis_Ritchie.jpg',
-};
+
 const PostDetailsPage = ({ post }) => {
-  console.log(post);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session) setIsLoading(false);
+      else router.replace('/auth');
+    });
+  }, []);
+  if (isLoading) return <div></div>;
   return <PostDetails post={post} />;
 };
 
@@ -20,7 +24,7 @@ export async function getStaticProps(context) {
     props: {
       post,
     },
-    revalidate : 3600
+    revalidate: 3600,
   };
 }
 export async function getStaticPaths(context) {

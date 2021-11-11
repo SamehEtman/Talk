@@ -7,7 +7,6 @@ const handler = async (req, res) => {
     const id = req.query.id;
     const objId = new ObjectId(id);
     const post = await db.collection('blogs').findOne({ _id: objId });
-    console.log(post);
     res.status(200).json({
       message: 'Fetched successfully !',
       post,

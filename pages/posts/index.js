@@ -1,31 +1,22 @@
 import Posts from '../../components/posts/Posts';
 import { fetchAllPosts, addPost } from '../../lib/api-utils';
-const dummyData = [
-  {
-    _id: 1,
-    title: 'hello',
-    summary: 'hello world',
-    content: 'iam sameh and i love eng. Osama brekaa, NO HOMO THOUUGH',
-    image: 'https://www.w3schools.com/images/lamp.jpg',
-  },
-  {
-    _id: 2,
-    title: 'hello2',
-    summary: 'hello world2',
-    content: 'iam sameh and i love eng. Osama brekaa, NO HOMO THOUUGH',
-    image: 'https://www.w3schools.com/images/lamp.jpg',
-  },
-];
-
+import { getSession } from 'next-auth/client';
 const PostsPage = ({ posts }) => {
   return <Posts posts={posts} />;
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps({ req, res }) {
   const { blogs } = await fetchAllPosts();
+  const session = await getSession({ req });
+  if (session)
+    return {
+      props: { posts: blogs },
+    };
   return {
-    props: { posts: blogs },
-    revalidate: 3600,
+    redirect: {
+      destination: '/auth',
+      permanent: false,
+    },
   };
 }
 
