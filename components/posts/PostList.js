@@ -9,17 +9,13 @@ const PostList = ({ posts }) => {
           title={post.title}
           summary={post.summary}
           image={post.image}
-          exploreLink={`/posts/${post._id}`}
+          exploreLink={`/posts/${post._id.toString()}`}
         />
       );
     });
   };
 
-  return (
-    <ul className={classes.list}>
-      {renderPosts()}
-    </ul>
-  );
+  return <ul className={classes.list}>{renderPosts()}</ul>;
 };
 
 export default PostList;

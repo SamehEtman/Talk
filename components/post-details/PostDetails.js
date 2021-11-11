@@ -5,7 +5,7 @@ const PostDetails = ({ post }) => {
   return (
     <section>
       <PostHeader title={post.title} />
-      <PostBody content={post.content} title={post.title} image={post.image} />
+      <PostBody content={post.content} title={post.title} image={post.image} owner = {post.owner}/>
     </section>
   );
 };

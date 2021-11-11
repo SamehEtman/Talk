@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Layout from '../components/layout/Layout';
 import { NotificationContextProvider } from '../store/NotificationContext';
 import '../styles/globals.css';
@@ -5,6 +6,15 @@ function MyApp({ Component, pageProps }) {
   return (
     <NotificationContextProvider>
       <Layout>
+        <Head>
+        <title>Sameh Posts</title>
+          <meta name="description" content="NextJS Blogs" />
+          <meta name="robots" content="all" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head> 
         <Component {...pageProps} />
       </Layout>
     </NotificationContextProvider>

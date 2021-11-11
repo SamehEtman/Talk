@@ -3,10 +3,14 @@ import ArrowRightIcon from '../icons/ArrowRightIcon';
 import classes from './PostItem.module.css';
 import Button from '../ui/button';
 const PostItem = ({ title, summary, exploreLink, image }) => {
-  console.log(image);
   return (
     <li className={classes.item}>
-      <Image src={image} alt={title} width={220} height={220}/>
+      <Image
+        src={image}
+        alt="https://via.placeholder.com/150"
+        width={220}
+        height={220}
+      />
       <div className={classes.content}>
         <div className={classes.summary}>
           <h2>{title}</h2>

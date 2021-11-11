@@ -13,16 +13,16 @@ const handler = async (req, res) => {
   if (req.method === 'POST') {
     const client = await connectDB();
     const db = client.db();
-    const { title, summary, content, image } = req.body;
+    const { title, summary, content, image, owner } = req.body;
     const blogs = await db.collection('blogs').insertOne({
       title,
       summary,
       content,
       image,
+      owner,
     });
     res.status(201).json({ message: 'Created succefully' });
     client.close();
-
   }
 };
 
