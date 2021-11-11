@@ -1,47 +1,100 @@
 import { useRouter } from 'next/dist/client/router';
 import { signIn } from 'next-auth/client';
-import React, { useRef, useState } from 'react';
+import { isEmail } from 'validator';
+import React, { useContext, useRef, useState } from 'react';
 import classes from './LoginForm.module.css';
+import NotificationContext from '../../store/NotificationContext';
+
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef();
   const passRef = useRef();
   const router = useRouter();
+  const notificationContext = useContext(NotificationContext);
+
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    let flag = false;
     const credintials = {
       email: emailRef.current.value,
       password: passRef.current.value,
     };
 
-    if (isLogin) {
-      const result = await signIn('credentials', {
-        redirect: false,
-        ...credintials,
+    if (isEmail(credintials.email) && credintials.password.length >= 8) {
+      console.log('to the dp');
+      notificationContext.showNotification({
+        status: 'pending',
+        message: 'Processing ... ',
+        title: 'Processing your data',
       });
-      if (!result.error) router.replace('/posts');
-      // notify with correct sign up
-
-      console.log(result);
-    } else {
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credintials),
-      });
-      let data;
-      if (!response.ok) {
-        // error
-        const data = await response.json();
-        return alert(data.error || data.message || ' Auth problem');
+      if (isLogin) {
+        const result = await signIn('credentials', {
+          redirect: false,
+          ...credintials,
+        });
+        if (!result.error) {
+          router.replace('/posts');
+          // notify with correct sign up
+          notificationContext.showNotification({
+            status: 'success',
+            message: 'Signing up completed',
+            title: 'Signed up!',
+          });
+          return;
+        }
+        notificationContext.showNotification({
+          status: 'error',
+          message: result.error || 'Auth problem',
+          title: 'Sign failed !',
+        });
+      } else {
+        const response = await fetch('/api/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(credintials),
+        });
+        let data;
+        if (!response.ok) {
+          // error
+          const data = await response.json();
+          notificationContext.showNotification({
+            status: 'error',
+            message: data.error || 'Auth problem',
+            title: 'Sign failed !',
+          });
+        }
+        data = await response.json();
+        // notify with correct sign up
+        notificationContext.showNotification({
+          status: 'success',
+          message: 'Signing up completed',
+          title: 'Signed up!',
+        });
+        router.replace('/posts');
       }
-      data = await response.json();
-      // notify with correct sign up
-      console.log(data);
-      router.replace('/posts');
+    } else {
+      notificationContext.showNotification({
+        status: 'error',
+        message: 'Validation problem',
+        title: `${isLogin ? 'Login' : 'Sign up'} failed !`,
+      });
     }
+  };
+  const onEmailChange = () => {
+    if (!isEmail(emailRef.current.value)) {
+      emailRef.current.style.backgroundColor = '#ffc6c6';
+      return console.log('bad');
+    }
+    emailRef.current.style.backgroundColor = '';
+  };
+  const onPasswordChange = () => {
+    if (passRef.current.value.length < 8) {
+      passRef.current.style.backgroundColor = '#ffc6c6';
+      return console.log('bad');
+    }
+    passRef.current.style.backgroundColor = '';
   };
   return (
     <React.Fragment>
@@ -49,11 +102,23 @@ const LoginForm = () => {
       <form onSubmit={onFormSubmit}>
         <div className={classes.control}>
           <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" ref={emailRef} required />
+          <input
+            type="email"
+            id="email"
+            onChange={onEmailChange}
+            ref={emailRef}
+            required
+          />
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Your Password</label>
-          <input type="password" id="password" ref={passRef} required />
+          <input
+            type="password"
+            id="password"
+            onChange={onPasswordChange}
+            ref={passRef}
+            required
+          />
         </div>
         <div className={classes.actions}>
           <button>{isLogin ? 'Log in' : 'Create Account'}</button>

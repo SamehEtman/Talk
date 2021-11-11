@@ -52,7 +52,9 @@
   border-radius: 4px;
   padding: 0.5rem 2.5rem;
 }
-
+.wrong {
+  background-color: #ffc6c6;
+}
 .actions button:hover {
   background-color: #999999;
   border-color: #999999;
