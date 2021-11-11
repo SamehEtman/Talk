@@ -16,7 +16,11 @@ export const NotificationContextProvider = (props) => {
   };
   useEffect(() => {
     let timeoutId;
-    if (activeNotification) {
+    if (
+      activeNotification &&
+      (activeNotification.status === 'error' ||
+        activeNotification.status === 'success')
+    ) {
       timeoutId = setTimeout(hideNotification, 2000);
     }
     return () => clearTimeout(timeoutId);

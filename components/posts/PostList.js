@@ -15,7 +15,11 @@ const PostList = ({ posts }) => {
     });
   };
 
-  return <ul className={classes.list}>{renderPosts()}</ul>;
+  return (
+    <ul className={classes.list}>
+      {renderPosts()}
+    </ul>
+  );
 };
 
 export default PostList;

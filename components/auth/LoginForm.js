@@ -34,11 +34,10 @@ const LoginForm = () => {
         });
         if (!result.error) {
           router.replace('/posts');
-          // notify with correct sign up
           notificationContext.showNotification({
             status: 'success',
-            message: 'Signing up completed',
-            title: 'Signed up!',
+            message: 'Welcome back ',
+            title: 'Signed In!',
           });
           return;
         }
@@ -67,12 +66,12 @@ const LoginForm = () => {
         }
         data = await response.json();
         // notify with correct sign up
+        router.push('/posts');
         notificationContext.showNotification({
           status: 'success',
           message: 'Signing up completed',
           title: 'Signed up!',
         });
-        router.replace('/posts');
       }
     } else {
       notificationContext.showNotification({

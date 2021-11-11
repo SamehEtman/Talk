@@ -1,4 +1,8 @@
-import Posts from '../../components/posts/Posts';
+import dynamic from 'next/dynamic';
+const Posts = dynamic(() => import('../../components/posts/Posts'), {
+  ssr: false,
+});
+
 import { fetchAllPosts, addPost } from '../../lib/api-utils';
 import { getSession } from 'next-auth/client';
 const PostsPage = ({ posts }) => {
