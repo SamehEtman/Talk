@@ -17,9 +17,9 @@ const AddPostForm = ({ showModal, setShowModal }) => {
         setShowModal(false);
       }
     };
-    document.addEventListener('click', onBodyClick);
+    document.addEventListener('mousedown', onBodyClick);
     return () => {
-      document.removeEventListener('click', onBodyClick);
+      document.removeEventListener('mousedown', onBodyClick);
     };
   }, []);
   const onFormSubmit = async (e) => {
@@ -30,10 +30,10 @@ const AddPostForm = ({ showModal, setShowModal }) => {
       content: contentRef.current.value,
       image: imageRef.current.value,
     };
-    if (!isURL(reqBody.image))
+    if (!isURL(reqBody.image) || !/.(png)|(jpe?g)$$/i.test(reqBody.image))
       return notificationContext.showNotification({
         status: 'error',
-        message: "Can't add the post, Image format is not good",
+        message: "Can't add the post, Image should be a url",
         title: 'Error',
       });
 
