@@ -13,7 +13,7 @@ const MainNav = () => {
   return (
     <header className={classes.header}>
       <div className={classes.logo}>
-        <Link href="/">Friends</Link>
+        <Link href="/">Talk</Link>
       </div>
       <nav className={classes.navigation}>
         <ul>
