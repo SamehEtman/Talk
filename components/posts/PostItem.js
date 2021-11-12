@@ -17,7 +17,7 @@ const PostItem = ({ id, owner, title, summary, exploreLink, image }) => {
     <li className={classes.item}>
       <Image
         src={image}
-        alt="https://via.placeholder.com/150"
+        alt={title}
         width={220}
         height={220}
       />

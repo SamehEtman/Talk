@@ -1,11 +1,11 @@
 import { getSession } from 'next-auth/client';
 import dynamic from 'next/dynamic';
-import { fetchByemail } from '../../lib/api-utils';
+import { connectDB } from '../../lib/db-uitl';
 const Profile = dynamic(() => import('../../components/profile/Profile'), {
   ssr: false,
 });
 
-const ProfilePage = ({user}) => {
+const ProfilePage = ({ user }) => {
   return <Profile user={user} />;
 };
 export async function getServerSideProps({ req }) {
@@ -18,7 +18,15 @@ export async function getServerSideProps({ req }) {
       },
     };
   }
-  const user = await fetchByemail(session.user.email);
+  const client = await connectDB();
+  const db = client.db();
+  const email = session.user.email;
+  let user = await db.collection('users').findOne({ email });
+  user = JSON.parse(JSON.stringify(user));
+  if (!user) {
+  }
+
+  client.close();
   return {
     props: { user },
   };

@@ -62,6 +62,7 @@ const UpdateForm = ({ setIsUpdate }) => {
       title: 'Update Done!',
     });
     setIsUpdate(false);
+    router.reload();
   };
 
   useEffect(() => {

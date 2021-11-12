@@ -70,7 +70,8 @@ const AddPostForm = ({ showModal, setShowModal }) => {
       title: 'Post Added!',
     });
     setShowModal(false);
-    //router.reload();
+    // should use useSWR to avoid refreshing 
+    router.reload();
   };
   return ReactDOM.createPortal(
     <div className={classes.overlay}>

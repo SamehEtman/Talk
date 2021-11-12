@@ -4,7 +4,7 @@ const PostBody = ({ title, content, image, owner }) => {
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <Image src={image} alt="{title}" width={320} height={320} />
+        <Image src={image} alt={title} width={320} height={320} />
       </div>
       <ul className={classes.list}>
         <li className={classes.item}>

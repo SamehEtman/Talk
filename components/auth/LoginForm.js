@@ -62,8 +62,13 @@ const LoginForm = () => {
             message: data.error || 'Auth problem',
             title: 'Sign failed !',
           });
+          return;
         }
         data = await response.json();
+        const result = await signIn('credentials', {
+          redirect: false,
+          ...credintials,
+        });
         // notify with correct sign up
         router.push('/posts');
         notificationContext.showNotification({
@@ -83,14 +88,14 @@ const LoginForm = () => {
   const onEmailChange = () => {
     if (!isEmail(emailRef.current.value)) {
       emailRef.current.style.backgroundColor = '#ffc6c6';
-      return ;
+      return;
     }
     emailRef.current.style.backgroundColor = '';
   };
   const onPasswordChange = () => {
     if (passRef.current.value.length < 8) {
       passRef.current.style.backgroundColor = '#ffc6c6';
-      return ;
+      return;
     }
     passRef.current.style.backgroundColor = '';
   };
