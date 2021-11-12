@@ -1,9 +1,5 @@
 module.exports = {
   reactStrictMode: true,
-  env: {
-    DB_URL: ``,
-    BASE_URL: '',
-  },
   images: {
     domains: [
       'www.w3schools.com',
