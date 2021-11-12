@@ -21,7 +21,6 @@ const LoginForm = () => {
     };
 
     if (isEmail(credintials.email) && credintials.password.length >= 8) {
-      console.log('to the dp');
       notificationContext.showNotification({
         status: 'pending',
         message: 'Processing ... ',

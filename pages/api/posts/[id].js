@@ -22,6 +22,7 @@ const handler = async (req, res) => {
     res.status(200).json({
       message: 'Deleted successfully !',
     });
+    client.close()
   }
 };
 

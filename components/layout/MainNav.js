@@ -7,7 +7,6 @@ import classes from './MainNav.module.css';
 const MainNav = () => {
   const [session, loading] = useSession();
   const onLogout = () => {
-    console.log('clicked');
     signOut();
   };
 

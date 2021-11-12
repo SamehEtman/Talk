@@ -8,7 +8,6 @@ const AuthPage = () => {
   const router = useRouter();
   useEffect(() => {
     getSession().then((session) => {
-      console.log(session);
       if (!session) {
         setIsAllowed(true);
       } else router.replace('/');

@@ -70,17 +70,13 @@ const UpdateForm = ({ setIsUpdate }) => {
         setIsUpdate(false);
       }
     };
-    console.log('here');
     addEventListener('mousedown', onBodyClick);
-    console.log('now');
     return () => {
-      console.log('cleared');
       removeEventListener('mousedown', onBodyClick);
     };
   }, []);
 
   const onPasswordChange = (ref) => {
-    console.log(ref.current.value);
     if (ref.current.value.length < 8) {
       return (ref.current.style.backgroundColor = '#ffc6c6');
     }
