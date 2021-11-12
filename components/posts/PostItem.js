@@ -2,7 +2,17 @@ import Image from 'next/image';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import classes from './PostItem.module.css';
 import Button from '../ui/button';
-const PostItem = ({ title, summary, exploreLink, image }) => {
+import { getSession, useSession } from 'next-auth/client';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import DeletePost from './DeletePost';
+const PostItem = ({ id, owner, title, summary, exploreLink, image }) => {
+  const [email, setEmail] = useState(null);
+  useEffect(() => {
+    getSession().then(({ user }) => {
+      setEmail(user.email);
+    });
+  });
   return (
     <li className={classes.item}>
       <Image
@@ -19,13 +29,16 @@ const PostItem = ({ title, summary, exploreLink, image }) => {
           <p>{summary}</p>
         </div>
         <div className={classes.actions}>
-          <Button link={exploreLink}>
-            <span>See Post</span>
-            <span className={classes.icon}>
-              <ArrowRightIcon />
-            </span>
-          </Button>
+          <Link href={exploreLink}>
+            <a className={classes.btn}>
+              <span>See Post</span>
+              <span className={classes.icon}>
+                <ArrowRightIcon />
+              </span>
+            </a>
+          </Link>
         </div>
+        {email == owner && <DeletePost id={id} />}
       </div>
     </li>
   );

@@ -84,14 +84,14 @@ const LoginForm = () => {
   const onEmailChange = () => {
     if (!isEmail(emailRef.current.value)) {
       emailRef.current.style.backgroundColor = '#ffc6c6';
-      return console.log('bad');
+      return ;
     }
     emailRef.current.style.backgroundColor = '';
   };
   const onPasswordChange = () => {
     if (passRef.current.value.length < 8) {
       passRef.current.style.backgroundColor = '#ffc6c6';
-      return console.log('bad');
+      return ;
     }
     passRef.current.style.backgroundColor = '';
   };

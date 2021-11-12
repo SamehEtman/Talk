@@ -1,7 +1,6 @@
-import classes from './event-logistics.module.css';
+import classes from './PostBody.module.css';
 import Image from 'next/image';
 const PostBody = ({ title, content, image, owner }) => {
-  console.log(title, content, image);
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>

@@ -1,22 +1,27 @@
-import Posts from "../../components/posts/Posts";
-const dummyData = [
-  {
-    _id: 1,
-    title: 'hello',
-    summary: 'hello world',
-    content: 'iam sameh and i love eng. Osama brekaa, NO HOMO THOUUGH',
-    image: 'https://www.w3schools.com/images/lamp.jpg',
-  },
-  {
-    _id: 2,
-    title: 'hello2',
-    summary: 'hello world2',
-    content: 'iam sameh and i love eng. Osama brekaa, NO HOMO THOUUGH',
-    image: 'https://www.w3schools.com/images/lamp.jpg',
-  },
-];
-const ProfilePage = () => {
-  return <Posts posts={dummyData} />;
-};
+import { getSession } from 'next-auth/client';
+import dynamic from 'next/dynamic';
+import { fetchByemail } from '../../lib/api-utils';
+const Profile = dynamic(() => import('../../components/profile/Profile'), {
+  ssr: false,
+});
 
+const ProfilePage = ({user}) => {
+  return <Profile user={user} />;
+};
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+  console.log(session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  const user = await fetchByemail(session.user.email);
+  return {
+    props: { user },
+  };
+}
 export default ProfilePage;

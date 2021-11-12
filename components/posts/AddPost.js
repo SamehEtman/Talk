@@ -3,17 +3,18 @@ import Button from '../ui/button';
 import AddPostForm from './AddPostForm';
 import classes from './AddPost.module.css';
 const AddPost = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showAddModal, setAddShowModal] = useState(false);
+  
   const onAddPostClick = () => {
-    setShowModal(true);
+    setAddShowModal(true);
   };
   return (
     <section>
       <div className={classes.button}>
         <Button onClick = {onAddPostClick}>Add Post</Button>
       </div>
-      {showModal && (
-        <AddPostForm showModal={showModal} setShowModal={setShowModal} />
+      {showAddModal && (
+        <AddPostForm showModal={showAddModal} setShowModal={setAddShowModal} />
       )}
     </section>
   );

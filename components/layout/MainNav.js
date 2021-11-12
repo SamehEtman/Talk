@@ -10,7 +10,7 @@ const MainNav = () => {
     console.log('clicked');
     signOut();
   };
-  
+
   return (
     <header className={classes.header}>
       <div className={classes.logo}>
@@ -21,6 +21,11 @@ const MainNav = () => {
           {!session && !loading && (
             <li>
               <Link href="/auth">Login</Link>
+            </li>
+          )}
+          {session && (
+            <li>
+              <Link href="/profile">Profile</Link>
             </li>
           )}
           {session && (

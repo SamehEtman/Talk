@@ -12,6 +12,16 @@ const handler = async (req, res) => {
       post,
     });
     client.close();
+  } else if (req.method === 'DELETE') {
+    const client = await connectDB();
+    const db = client.db();
+    const id = req.query.id;
+    const objId = new ObjectId(id);
+    const post = await db.collection('blogs').findOneAndDelete({ _id: objId });
+    if (!post) res.status(404).json({ error: 'blog not found' });
+    res.status(200).json({
+      message: 'Deleted successfully !',
+    });
   }
 };
 

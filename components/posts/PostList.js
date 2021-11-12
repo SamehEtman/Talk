@@ -6,10 +6,12 @@ const PostList = ({ posts }) => {
       return (
         <PostItem
           key={post._id}
+          id = {post._id}
+          owner={post.owner}
           title={post.title}
           summary={post.summary}
           image={post.image}
-          exploreLink={`/posts/${post._id.toString()}`}
+          exploreLink={`/posts/${post._id}`}
         />
       );
     });

@@ -15,7 +15,6 @@ const AddPostForm = ({ showModal, setShowModal }) => {
   const notificationContext = useContext(NotificationContext);
   useEffect(() => {
     const onBodyClick = (e) => {
-      console.log(e.target);
       if (!formRef.current.contains(e.target)) {
         setShowModal(false);
       }
