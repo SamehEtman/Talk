@@ -4,12 +4,14 @@ import { isEmail } from 'validator';
 import React, { useContext, useRef, useState } from 'react';
 import classes from './LoginForm.module.css';
 import NotificationContext from '../../store/NotificationContext';
+import { useTranslation } from 'react-i18next';
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef();
   const passRef = useRef();
   const router = useRouter();
+  const { t } = useTranslation('common');
   const notificationContext = useContext(NotificationContext);
 
   const onFormSubmit = async (e) => {
@@ -32,7 +34,7 @@ const LoginForm = () => {
           ...credintials,
         });
         if (!result.error) {
-          router.replace('/posts');
+          router.reload();
           notificationContext.showNotification({
             status: 'success',
             message: 'Welcome back ',
@@ -70,7 +72,7 @@ const LoginForm = () => {
           ...credintials,
         });
         // notify with correct sign up
-        router.push('/posts');
+        router.reload('/posts');
         notificationContext.showNotification({
           status: 'success',
           message: 'Signing up completed',
@@ -101,10 +103,10 @@ const LoginForm = () => {
   };
   return (
     <React.Fragment>
-      <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
+      <h1>{isLogin ? t('login') : t('signup')}</h1>
       <form onSubmit={onFormSubmit}>
         <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
+          <label htmlFor="email">{t('yourEmail')}</label>
           <input
             type="email"
             id="email"
@@ -114,7 +116,7 @@ const LoginForm = () => {
           />
         </div>
         <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
+          <label htmlFor="password">{t('yourPassword')}</label>
           <input
             type="password"
             id="password"
@@ -124,13 +126,13 @@ const LoginForm = () => {
           />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? 'Log in' : 'Create Account'}</button>
+          <button>{isLogin ? t('login') : t('createAcc')}</button>
           <button
             type="button"
             className={classes.toggle}
             onClick={() => setIsLogin(!isLogin)}
           >
-            {isLogin ? 'Create new account' : 'I have an account'}
+            {isLogin ? t('createAcc') : t('alreadyHave')}
           </button>
         </div>
       </form>

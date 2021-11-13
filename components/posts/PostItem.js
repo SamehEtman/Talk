@@ -6,13 +6,8 @@ import { getSession, useSession } from 'next-auth/client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import DeletePost from './DeletePost';
-const PostItem = ({ id, owner, title, summary, exploreLink, image }) => {
-  const [email, setEmail] = useState(null);
-  useEffect(() => {
-    getSession().then(({ user }) => {
-      setEmail(user.email);
-    });
-  });
+const PostItem = ({ email , id, owner, title, summary, exploreLink, image }) => {
+  
   return (
     <li className={classes.item}>
       <Image

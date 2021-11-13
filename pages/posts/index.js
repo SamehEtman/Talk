@@ -1,4 +1,6 @@
 import dynamic from 'next/dynamic';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 import { connectDB } from '../../lib/db-uitl';
 const Posts = dynamic(() => import('../../components/posts/Posts'), {
   ssr: false,
@@ -9,7 +11,7 @@ const PostsPage = ({ posts }) => {
   return <Posts posts={posts} />;
 };
 
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps({ req, res , locale}) {
   const client = await connectDB();
   const db = client.db();
   let blogs = await db.collection('blogs').find().toArray();
@@ -19,7 +21,7 @@ export async function getServerSideProps({ req, res }) {
   const session = await getSession({ req });
   if (session)
     return {
-      props: { posts: blogs },
+      props: { posts: blogs ,...(await serverSideTranslations(locale, ['common', 'footer'])),},
     };
   return {
     redirect: {
