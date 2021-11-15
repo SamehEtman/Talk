@@ -1,7 +1,7 @@
 import { signOut, useSession, getSession } from 'next-auth/client';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import classes from './MainNav.module.css';
 const MainNav = () => {

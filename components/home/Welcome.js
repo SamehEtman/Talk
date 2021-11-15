@@ -16,9 +16,8 @@ function Welcome() {
       <h1>Welcome on Board!</h1>
       <h1 className={classes.link}>
         <Link href="/posts">
-          {isLoggedIn === 'yes' ? browse : isLoggedIn === 'no' ? sign : ''}
+          {isLoggedIn === 'yes' ? "Browse Blogs" : isLoggedIn === 'no' ? "Sign up" : ''}
         </Link>
-        +{' '}
       </h1>
     </section>
   );
