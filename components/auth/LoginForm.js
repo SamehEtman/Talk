@@ -32,7 +32,7 @@ const LoginForm = () => {
           ...credintials,
         });
         if (!result.error) {
-          router.replace('/posts');
+          router.reload('/posts');
           notificationContext.showNotification({
             status: 'success',
             message: 'Welcome back ',
@@ -70,7 +70,7 @@ const LoginForm = () => {
           ...credintials,
         });
         // notify with correct sign up
-        router.push('/posts');
+        router.reload('/posts');
         notificationContext.showNotification({
           status: 'success',
           message: 'Signing up completed',

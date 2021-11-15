@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
       <Layout>
         <Head>
           <title>Sameh Posts</title>
-          <meta name="description" content="NextJS Blogs" />
+          <meta name="description" content="Share your words with the rest of the world" />
           <meta name="robots" content="all" />
           <meta
             name="viewport"

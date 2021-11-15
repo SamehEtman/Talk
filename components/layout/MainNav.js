@@ -1,14 +1,21 @@
-import { signOut, useSession } from 'next-auth/client';
+import { signOut, useSession, getSession } from 'next-auth/client';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
 import classes from './MainNav.module.css';
 const MainNav = () => {
-  const [session, loading] = useSession();
+  const [isLogged, setIsLogged] = useState(false);
+  const router = useRouter();
   const onLogout = () => {
     signOut();
   };
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session) setIsLogged(true);
+      else setIsLogged(false);
+    });
+  }, []);
 
   return (
     <header className={classes.header}>
@@ -17,22 +24,22 @@ const MainNav = () => {
       </div>
       <nav className={classes.navigation}>
         <ul>
-          {!session && !loading && (
+          {!isLogged && (
             <li>
               <Link href="/auth">Login</Link>
             </li>
           )}
-          {session && (
+          {isLogged && (
             <li>
               <Link href="/profile">Profile</Link>
             </li>
           )}
-          {session && (
+          {isLogged && (
             <li>
               <Link href="/posts">Posts</Link>
             </li>
           )}
-          {session && (
+          {isLogged && (
             <li onClick={onLogout}>
               <Link href="/">Logout</Link>
             </li>
