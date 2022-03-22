@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client';
 import dynamic from 'next/dynamic';
 import { connectDB } from '../../lib/db-uitl';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 const Profile = dynamic(() => import('../../components/profile/Profile'), {
   ssr: false,
 });
@@ -8,7 +10,7 @@ const Profile = dynamic(() => import('../../components/profile/Profile'), {
 const ProfilePage = ({ user }) => {
   return <Profile user={user} />;
 };
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req , locale}) {
   const session = await getSession({ req });
   if (!session) {
     return {
@@ -28,7 +30,7 @@ export async function getServerSideProps({ req }) {
 
   client.close();
   return {
-    props: { user },
+    props: { user ,...(await serverSideTranslations(locale, ['common', 'footer'])),},
   };
 }
 export default ProfilePage;
