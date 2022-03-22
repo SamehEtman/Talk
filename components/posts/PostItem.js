@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import DeletePost from './DeletePost';
 const PostItem = ({ email , id, owner, title, summary, exploreLink, image }) => {
-
+  
   return (
     <li className={classes.item}>
       <Image

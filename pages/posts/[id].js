@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/client';
 import { useRouter } from 'next/dist/client/router';
 import { useEffect, useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 import PostDetails from '../../components/post-details/PostDetails';
 import { connectDB } from '../../lib/db-uitl';
 import { ObjectId } from 'mongodb';
@@ -17,8 +19,8 @@ const PostDetailsPage = ({ post }) => {
   return <PostDetails post={post} />;
 };
 
-export async function getStaticProps(context) {
-  const id = context.params.id;
+export async function getServerSideProps({ params, locale }) {
+  const id = params.id;
   const client = await connectDB();
   const db = client.db();
   const objId = new ObjectId(id);
@@ -29,27 +31,8 @@ export async function getStaticProps(context) {
   return {
     props: {
       post,
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
     },
-    revalidate: 3600,
-  };
-}
-export async function getStaticPaths(context) {
-  const client = await connectDB();
-  const db = client.db();
-  let blogs = await db.collection('blogs').find().toArray();
-  // the next is to stringify _id , I know it's stupid but hey , it works
-  blogs = JSON.parse(JSON.stringify(blogs));
-  client.close();
-  const ids = blogs.map((post) => {
-    return {
-      params: {
-        id: post._id,
-      },
-    };
-  });
-  return {
-    paths: ids,
-    fallback: false,
   };
 }
 
