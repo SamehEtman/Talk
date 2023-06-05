@@ -10,5 +10,6 @@
   "signup": "تسجيل",
   "yourEmail": "ادخل الايميل",
   "yourPassword": "ادخل كلمة السر",
-  "createAcc": "عمل حساب جديد"
+  "createAcc": "عمل حساب جديد",
+  "alreadyHave": "لدي حساب بالفعل"
 }
