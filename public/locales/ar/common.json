@@ -4,12 +4,11 @@
   "browse": "تصفح المنشورات",
   "logo": "عبر",
   "login": "دخول",
-  "logout" : "خروج",
-  "profile" : "حسابي",
-  "posts" : "المنشورات",
-  "signup" : "تسجيل",
-  "yourEmail" : "ادخل الايميل",
-  "yourPassword" : "ادخل كلمة السر",
-  "createAcc" : "عمل حساب جديد",
-  "alreadyHave" : "انا اصلا عندي حساب"
+  "logout": "خروج",
+  "profile": "حسابي",
+  "posts": "المنشورات",
+  "signup": "تسجيل",
+  "yourEmail": "ادخل الايميل",
+  "yourPassword": "ادخل كلمة السر",
+  "createAcc": "عمل حساب جديد"
 }
