@@ -1,0 +1,15 @@
+{
+  "msg": "Bienvenue à bord!",
+  "sign": "S'inscrire maintenant",
+  "browse": "Parcourez les blogs !",
+  "logo": "Parler",
+  "login": "Connexion",
+  "logout": "Se déconnecter",
+  "profile": "Profil",
+  "posts": "Blogues",
+  "signup": "S'inscrire",
+  "yourEmail": "Votre e-mail",
+  "yourPassword": "Votre mot de passe",
+  "createAcc": "Créer un nouveau compte",
+  "alreadyHave": "J'ai un compte"
+}
